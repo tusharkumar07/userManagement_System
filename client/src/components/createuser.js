@@ -70,14 +70,11 @@ const CreateUser = ({
         <Loading />
       ) : (
         <div>
-          <div className='create'>Create User</div>
+          <div className='create' style={{textAlign:"center"}}><h2>Add New User</h2></div>
           <div className='container'>
             <form onSubmit={e => handleCreate(e)}>
-              <small className='form-text text-muted'>
-                * is reuiqred
-              </small>
               <div className='form-group'>
-                * First Name:{' '}
+                {/* * First Name:{' '} */}
                 <input
                   className='form-control'
                   name='firstname'
@@ -91,7 +88,7 @@ const CreateUser = ({
                 )}
               </div>
               <div className='form-group'>
-                * Last Name:{' '}
+                
                 <input
                   className='form-control'
                   name='lastname'
@@ -105,7 +102,6 @@ const CreateUser = ({
                 )}
               </div>
               <div className='form-group'>
-                * Gender:{' '}
                 <input
                   className='form-control'
                   name='sex'
@@ -122,7 +118,6 @@ const CreateUser = ({
                     -1 && <Alert warning='invalid' item='sex' />}
               </div>
               <div className='form-group'>
-                * Age:{' '}
                 <input
                   className='form-control'
                   name='age'
@@ -139,7 +134,6 @@ const CreateUser = ({
                 {/* test server error here cause server will return err when age is not a number */}
               </div>
               <div className='form-group'>
-                * Password:{' '}
                 <input
                   className='form-control'
                   type='password'
@@ -151,7 +145,6 @@ const CreateUser = ({
                 {!password && <Alert warning='empty' item='password' />}
               </div>
               <div className='form-group'>
-                * Repeat:{' '}
                 <input
                   className='form-control'
                   type='password'
