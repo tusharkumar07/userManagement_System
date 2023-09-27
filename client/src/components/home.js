@@ -3,7 +3,7 @@ import { setUserList } from '../redux/action-creators/users';
 import { connect } from 'react-redux';
 import { initUser, initEdit, deleteUser } from '../redux/action-creators/users';
 import { Loading, Alert } from './utils';
-import Pagination from './pagination';
+// import Pagination from './pagination';
 import Table from './table';
 
 const Home = ({
@@ -25,23 +25,27 @@ const Home = ({
 
   const maxRowsPerPage = 10; // set max rows per page
   const [query, setQuery] = useState(''); // search input
-  const [goToPage, setGoToPage] = useState(''); // goto input
-
   const [actAttr, setActAttr] = useState(''); // sort by which attribute
   const [sortType, setSortType] = useState(0); // default/asc/desc
   const [queryCur, setQueryCur] = useState(''); // store the query for search
 
   const [activePage, setActivePage] = useState(1); // current page
+  const [back,setBack]=useState(false);
+  // useEffect(()=>{
+
+  // },[back])
 
   const handleChange = e => {
     if (e.target.id === 'search') {
       setQuery(e.target.value);
-    } else if (e.target.id === 'goto') {
-      setGoToPage(e.target.value);
-    }
+    } 
   };
 
   const handleCreate = e => {
+    history.push('/createuser');
+  };
+  const returnBack = e => {
+    setBack(true)
     history.push('/createuser');
   };
 
@@ -59,23 +63,6 @@ const Home = ({
   const handleDelete = id => {
     deleteUser(id);
     // setDeleteId(id);
-  };
-
-  const handlePageGoTo = e => {
-    // console.log(e.target.tagName); // FORM
-    e.preventDefault();
-    if (
-      !isNaN(goToPage) &&
-      goToPage >= 1 &&
-      goToPage <=
-        parseInt(
-          (activeUser(queryCur, sortType, users, actAttr).length - 1) /
-            maxRowsPerPage
-        ) +
-          1
-    )
-      setActivePage(parseInt(goToPage)); // prevent invalid input
-   
   };
 
   const handleSort = e => {
@@ -230,17 +217,7 @@ const Home = ({
       <nav className='navbar navbar-light bg-light'>
         <label className='navbar-brand'>Users</label>
 
-        <form className='form-inline' onSubmit={e => handlePageGoTo(e)}>
-          <input
-            className='form-control mr-sm-2'
-            type='goto'
-            placeholder='Go to Page'
-            aria-label='GoTo'
-            id='goto'
-            value={goToPage}
-            onChange={e => handleChange(e)}
-          />
-        </form>
+        
 
         <form className='form-inline' onSubmit={e => handleSearch(e)}>
           
@@ -256,6 +233,13 @@ const Home = ({
        
         </form>
 
+        <button
+          className='btn btn-primary'
+          onClick={e => returnBack()}
+        >
+        <i className='fas fa-arrow-left' />
+           Back
+        </button>
       
 
         <button
@@ -284,7 +268,7 @@ const Home = ({
             />
 
             {/* Pagination Bar */}
-            <Pagination
+            {/* <Pagination
               queryCur={queryCur}
               sortType={sortType}
               users={users}
@@ -293,9 +277,9 @@ const Home = ({
               activeUser={activeUser}
               activePage={activePage}
               setActivePage={setActivePage}
-            />
-            {error && <Alert waring='server' item='get' />}
-            {deleteError && <Alert waring='server' item='delete' />}
+            /> */}
+            {/* {error && <Alert waring='server' item='get' />}
+            {deleteError && <Alert waring='server' item='delete' />} */}
           </div>
         )}
       </div>
